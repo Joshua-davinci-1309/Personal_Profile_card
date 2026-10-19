@@ -4,24 +4,48 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>PROFILE CARD</title>
-  <link rel="stylesheet" href="styles.css" />
+  <title>Joshua Mwelwa &middot; Web Developer</title>
+  <meta name="description"
+    content="Joshua Mwelwa — web developer based in Ndola, Zambia. 3 years of delivering trusted health care solutions and software country wide.">
+  <meta name="theme-color" content="#d3aa41">
+  <link rel="icon"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23d6a932'/%3E%3Ctext x='32' y='42' font-family='Georgia,serif' font-size='26' font-weight='700' fill='%232a2110' text-anchor='middle'%3EJM%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-  <div class="card">
-    <div class="card_avatar">
+  <main class="card">
+    <div class="card_media">
+      <div class="card_ring">
+        <img class="card_avatar" src="avatar.jpg" alt="Portrait of Joshua Mwelwa" width="1024" height="1024"
+          decoding="async">
+      </div>
     </div>
-    <h1 class="card_name">Joshua Mwelwa</h1>
-    <p class="card_role">Web Developer  Ndola, Zambia</p>
-    <button class="card_btn">Hire Me</button>
-    
-    <div class="card_links">
-      <a class="card_link" href="#">Github</a>
-      <a class="card_link" href="#">Twitter</a>
-      <a class="card_link" href="#">LinkedIn</a>
+
+    <div class="card_body">
+      <h1 class="card_name">Joshua Mwelwa</h1>
+      <p class="card_role">
+        <span>Web Developer</span>
+        <span class="card_dot" aria-hidden="true"></span>
+        <span>Ndola, Zambia</span>
+      </p>
+
+      <p class="card_slogan">3 Years of Delivering Trusted Health Care Solutions and Software Country Wide</p>
+
+      <button class="card_btn" type="button">Hire Me</button>
+
+      <nav class="card_links" aria-label="Social profiles">
+        <a class="card_link" href="#">GitHub</a>
+        <a class="card_link" href="#">Twitter</a>
+        <a class="card_link" href="#">LinkedIn</a>
+      </nav>
     </div>
-  </div>
+  </main>
 </body>
 
 </html>

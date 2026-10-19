@@ -3,95 +3,290 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+:root {
+  /* Ivory + Gold palette sampled from the reference swatch */
+  --ivory: #fbf6e9;
+  --ivory-deep: #f0e5c8;
+  --cream: #e6d9b7;
+  --gold: #d6a932;
+  --gold-light: #ebd07e;
+  --gold-mid: #c2921a;
+  --gold-deep: #b57901;
+  --bronze: #8b5603;
+  --ink: #2a2110;
+  --ink-soft: #4a3b1c;
+  --muted: #574621;
+
+  /* 50% glass: lower this (0.35) for more see-through, raise it (0.7) for more frost */
+  --glass-alpha: 0.5;
+  --glass-tint: 251, 246, 233; /* --ivory as rgb */
+  --hairline: rgba(139, 86, 3, 0.24);
+}
+
 body {
+  position: relative;
   min-height: 100vh;
-  background-color: #f0f4f8;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: sans-serif;
-}
-.card {
-  background-color: #fff;
-  width: 90%;
-  max-width: 360px;
-  padding: 40px 24px;
-  border-radius: 16px;
-  text-align: center;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.8);
+  padding: 32px 20px;
+  font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(55rem 38rem at 50% -18%, #fffdf3 0%, rgba(255, 253, 243, 0) 60%),
+    radial-gradient(26rem 20rem at 62% 46%, rgba(255, 252, 240, 0.55) 0%, rgba(255, 252, 240, 0) 62%),
+    radial-gradient(24rem 18rem at 38% 74%, rgba(181, 121, 1, 0.3) 0%, rgba(181, 121, 1, 0) 68%),
+    radial-gradient(30rem 24rem at 6% 92%, rgba(214, 169, 50, 0.55) 0%, rgba(214, 169, 50, 0) 62%),
+    radial-gradient(28rem 22rem at 98% 84%, rgba(139, 86, 3, 0.45) 0%, rgba(139, 86, 3, 0) 64%),
+    linear-gradient(158deg, #f8f1de 0%, #ead7a8 40%, #d3aa41 70%, #b5770a 100%);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
-/*.card {
-background-color: #ffffff;
-width: 90%;
-max-width: 360px;
-padding: 40px 24px;
-border-radius: 16px;
-text-align: center;
-box-sizing: border-box;
-}*/ 
+/* soft silk-like light pools behind the glass */
+body::before {
+  content: "";
+  position: fixed;
+  inset: -12%;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(26rem 18rem at 22% 26%, rgba(255, 250, 232, 0.65), transparent 66%),
+    radial-gradient(22rem 16rem at 80% 70%, rgba(255, 255, 255, 0.3), transparent 66%),
+    radial-gradient(18rem 14rem at 62% 8%, rgba(255, 255, 255, 0.45), transparent 68%);
+  filter: blur(34px);
+}
+
+.card {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 400px;
+  padding: 38px 26px 30px;
+  text-align: center;
+  border-radius: 28px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  background:
+    linear-gradient(115deg, rgba(255, 255, 255, 0.42) 0%, rgba(255, 255, 255, 0.08) 22%, rgba(255, 255, 255, 0) 40%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.26) 0%, rgba(255, 255, 255, 0) 46%),
+    rgba(var(--glass-tint), var(--glass-alpha));
+  -webkit-backdrop-filter: blur(30px) saturate(150%);
+  backdrop-filter: blur(30px) saturate(150%);
+  box-shadow:
+    0 36px 74px -32px rgba(84, 58, 6, 0.55),
+    0 10px 24px -14px rgba(84, 58, 6, 0.32),
+    inset 0 0 0 1px rgba(214, 169, 50, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.75);
+  animation: card-in 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+/* no backdrop-filter support: fall back to a readable frosted panel */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .card {
+    background: rgba(var(--glass-tint), 0.9);
+  }
+}
+
+@keyframes card-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.card_media {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+
+/* warm glow sitting behind the portrait */
+.card_media::before {
+  content: "";
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  width: 230px;
+  height: 230px;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(214, 169, 50, 0.38) 0%, rgba(214, 169, 50, 0) 68%);
+  filter: blur(6px);
+}
+
+.card_ring {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 148px;
+  height: 148px;
+  padding: 4px;
+  border-radius: 50%;
+  background: conic-gradient(from 210deg,
+      #f3e4bb 0deg,
+      var(--gold) 70deg,
+      var(--bronze) 140deg,
+      #f0d79b 190deg,
+      var(--gold-mid) 260deg,
+      #f3e4bb 360deg);
+  box-shadow:
+    0 18px 36px -16px rgba(90, 66, 10, 0.6),
+    inset 0 1px 2px rgba(255, 255, 255, 0.7);
+}
 
 .card_avatar {
-  width: 100px;
-  height: 100px;
+  display: block;
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
-  background-color: #c8d8e8;
-  margin: 0 auto 20px auto;
-  background-image: url('my_image.png');
-  background-size: cover;
-  background-position: center;
+  object-fit: cover;
+  object-position: 50% 30%;
+  border: 3px solid rgba(255, 253, 244, 0.95);
+  background: var(--ivory-deep);
 }
 
 .card_name {
-  font-size: 1.4rem;
-  color: #1a1a2a;
-  margin-bottom: 8px;
+  font-family: "Playfair Display", "Iowan Old Style", Georgia, serif;
+  font-size: 1.62rem;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  color: var(--ink);
 }
+
 .card_role {
-  font-size: 0.9rem;
-  color: #666;
-  margin-bottom: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 8px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
 }
+
+.card_dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--gold-mid);
+}
+
+.card_slogan {
+  margin: 22px 0;
+  padding: 15px 16px;
+  border: 1px solid var(--hairline);
+  border-left: 3px solid var(--gold-deep);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.34);
+  font-size: 0.82rem;
+  font-weight: 500;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  text-align: left;
+}
+
 .card_btn {
-  background-color:#2d6a4F;
-  color: #fff;
-  border: none;
-  padding: 12px 32px;
-  border-radius: 8px;
-  font-size: 1rem;
+  width: 100%;
+  padding: 13px 24px;
+  border: 1px solid rgba(139, 86, 3, 0.35);
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold-mid) 52%, #c8951a 100%);
+  color: #2a2110;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  box-shadow:
+    0 14px 26px -14px rgba(139, 86, 3, 0.95),
+    inset 0 1px 0 rgba(255, 255, 255, 0.55);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
 }
 
 .card_btn:hover {
-  background-color: #1b4332;
+  transform: translateY(-1px);
+  filter: brightness(1.06) saturate(1.05);
+  box-shadow:
+    0 18px 30px -14px rgba(139, 86, 3, 0.9),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
 }
 
-/*.card_links {
-  display: flex;
-  justify-content: center;
-  gap: 16px;
-  margin-top: 20px;
-}*/
+.card_btn:active {
+  transform: translateY(0);
+  filter: brightness(0.98);
+}
 
 .card_links {
   display: flex;
-  justify-content: center;
-  gap: 16px;
-  margin-top: 20px;
-  flex-direction: row;
-  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid var(--hairline);
 }
 
 .card_link {
+  flex: 1 1 0;
+  padding: 9px 6px;
+  border: 1px solid var(--hairline);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.3);
+  text-align: center;
   text-decoration: none;
-  color: #2d6a4f;
-  font-size: 0.85rem;
+  color: #653d02;
+  font-size: 0.75rem;
   font-weight: 600;
-  letter-spacing: 0.5px;
-  transition: color 0.2s ease;
+  letter-spacing: 0.02em;
+  transition: background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease, transform 0.18s ease;
 }
 
 .card_link:hover {
-  color: #1b4332;
+  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.58);
+  border-color: rgba(139, 86, 3, 0.4);
+  color: #4f3202;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--bronze);
+  outline-offset: 3px;
+}
+
+@media (max-width: 380px) {
+  body {
+    padding: 20px 14px;
+  }
+  .card {
+    padding: 30px 20px 24px;
+    border-radius: 24px;
+  }
+  .card_ring {
+    width: 128px;
+    height: 128px;
+  }
+  .card_name {
+    font-size: 1.42rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
 }
