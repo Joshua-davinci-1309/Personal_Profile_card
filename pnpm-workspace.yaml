@@ -1,0 +1,5 @@
+# pnpm 11 reads workspace-level settings from this file.
+# unrs-resolver (used by ESLint tooling) ships a postinstall that downloads native
+# bindings; the JavaScript fallback is enough for linting, so its build is skipped.
+allowBuilds:
+  unrs-resolver: false

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="JM">
+  <rect width="64" height="64" rx="14" fill="#060701" />
+  <rect x="1.5" y="1.5" width="61" height="61" rx="12.5" fill="none" stroke="#363F3A" stroke-width="1.5" />
+  <text
+    x="32"
+    y="41"
+    text-anchor="middle"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-size="24"
+    font-weight="600"
+    letter-spacing="1"
+    fill="#C9C8BF"
+  >JM</text>
+  <circle cx="47" cy="17" r="3" fill="#E2C2B9" />
+</svg>
